@@ -1,7 +1,7 @@
 # The Daily Edge
 
 A personal daily news briefing that runs automatically every morning.
-It fetches RSS feeds, summarizes the top stories with Claude AI, and
+It fetches RSS feeds, summarizes the top stories with OpenAI, and
 publishes a clean mobile-friendly page to GitHub Pages — completely free.
 
 ---
@@ -9,34 +9,62 @@ publishes a clean mobile-friendly page to GitHub Pages — completely free.
 ## What You Get
 
 - 4 topic sections: VC & Startups, Geopolitics, World News, Financial News
-- 4–6 bullet-point summaries per topic, written by Claude
+- 4–6 bullet-point summaries per topic
 - A single `index.html` that loads instantly on any device
 - Automatic daily updates at 7 AM UTC via GitHub Actions
 
 ---
 
-## 5-Step Setup
+## Setup (start here after adding your secret)
 
-1. **Fork this repo** — click the Fork button at the top right of this page.
+You've already added `OPENAI_API_KEY` as a GitHub secret. Now do these 3 things:
 
-2. **Add your API key** — go to your fork's Settings → Secrets and variables →
-   Actions → New repository secret. Name it `ANTHROPIC_API_KEY` and paste your
-   key from [console.anthropic.com](https://console.anthropic.com).
+**1. Enable GitHub Pages**
 
-3. **Enable GitHub Pages** — go to Settings → Pages → Source: Deploy from a
-   branch → Branch: `main`, folder: `/ (root)` → Save.
+Go to your repo → Settings → Pages → Source: Deploy from a branch →
+Branch: `main`, folder: `/ (root)` → click Save.
 
-4. **Trigger the first run** — go to Actions → Daily Briefing → Run workflow.
-   The first `index.html` will appear in about a minute.
+**2. Trigger the first run**
 
-5. **Visit your briefing** — your live page is at:
-   `https://<your-username>.github.io/daily-news-agent/`
+Go to your repo → Actions → Daily Briefing → click "Run workflow" → Run workflow.
+Wait about 60 seconds. When it finishes, `index.html` will appear in your repo.
 
-After setup, the page updates automatically every morning. No further action needed.
+**3. View your live page**
+
+```
+https://markw24.github.io/newsagent/
+```
+
+That's it. Every morning at 7 AM UTC it runs automatically and updates the page.
 
 ---
 
-## How to Change Topics
+## Controlling the Schedule
+
+The schedule is set in `.github/workflows/daily.yml`:
+
+```yaml
+- cron: "0 7 * * *"   # 7 AM UTC every day
+```
+
+Change `0 7` to whatever time you want. Format is `minute hour` in UTC.
+Examples:
+- `0 6 * * *` — 6 AM UTC (1 AM US Eastern, 2 PM Sydney)
+- `0 12 * * *` — 12 PM UTC (noon)
+- `0 7 * * 1-5` — weekdays only
+
+To apply the change: edit the file, commit it, push it.
+
+**To trigger a run manually at any time:**
+Go to Actions → Daily Briefing → Run workflow.
+
+**To pause the schedule:**
+Go to Actions → Daily Briefing → click the `...` menu → Disable workflow.
+Re-enable it the same way when you want it back.
+
+---
+
+## Changing Topics or Feeds
 
 Open `config.py`. Edit the `TOPICS` dict — change the keys (topic names) and
 the lists of RSS feed URLs. Any public RSS feed URL works.
@@ -49,12 +77,27 @@ TOPICS = {
 }
 ```
 
+After saving, commit and push the file. The next run will use the new topics.
+
 ---
 
-## How to Change the Summary Style
+## Changing the Summary Style
 
 Open `summarize.py`. Edit the `SYSTEM_PROMPT` string near the top of the file.
-For example, change "4-6 bullet points" to "2-3 sentences" for shorter output.
+For example, change "4-6 bullet points" to "2-3 sentences" for shorter summaries.
+
+After saving, commit and push.
+
+---
+
+## How to Push Any Change
+
+```bash
+cd /Users/markwang/projects/daily-news-agent
+git add .
+git commit -m "describe your change here"
+git push
+```
 
 ---
 
@@ -62,7 +105,7 @@ For example, change "4-6 bullet points" to "2-3 sentences" for shorter output.
 
 - GitHub Actions: free (well within the 2,000 min/month free tier)
 - GitHub Pages: free
-- Claude API: ~$0.001–0.005 per daily run using `claude-haiku-4-5-20251001`
+- OpenAI API: ~$0.001–0.003 per daily run using `gpt-4o-mini`
 
 ---
 
@@ -70,9 +113,9 @@ For example, change "4-6 bullet points" to "2-3 sentences" for shorter output.
 
 | File | What it does |
 |------|-------------|
-| `config.py` | Topics and RSS URLs |
+| `config.py` | Topics, RSS URLs, and model name |
 | `fetch_feeds.py` | Downloads RSS feeds with feedparser |
-| `summarize.py` | Calls Claude API to summarize articles |
+| `summarize.py` | Calls OpenAI API to summarize articles |
 | `build_page.py` | Assembles template + summaries → index.html |
 | `run.py` | Entry point — calls the above in order |
 | `template.html` | HTML skeleton with `{date}` and `{content}` placeholders |

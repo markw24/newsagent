@@ -1,0 +1,25 @@
+# run.py — entry point: fetches RSS feeds, summarizes with Claude, builds index.html
+
+from config import TOPICS
+from fetch_feeds import fetch_all_topics
+from summarize import summarize_all_topics
+from build_page import build_html
+
+
+def main():
+    print("=== The Daily Edge ===")
+
+    print("\n[1/3] Fetching RSS feeds...")
+    articles_by_topic = fetch_all_topics(TOPICS)
+
+    print("\n[2/3] Summarizing with OpenAI...")
+    summaries_by_topic = summarize_all_topics(articles_by_topic)
+
+    print("\n[3/3] Building index.html...")
+    build_html(summaries_by_topic)
+
+    print("\nDone. Open index.html to view your daily briefing.")
+
+
+if __name__ == "__main__":
+    main()

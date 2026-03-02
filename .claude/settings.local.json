@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status 2>&1; gh auth status 2>&1)"
+    ]
+  }
+}

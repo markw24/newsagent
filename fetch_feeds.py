@@ -12,8 +12,9 @@ def fetch_articles_from_feed(feed_url):
         for entry in feed.entries[:MAX_ARTICLES_PER_FEED]:
             title = entry.get("title", "").strip()
             summary = entry.get("summary", entry.get("description", "")).strip()
+            link = entry.get("link", "")
             if title:
-                article_list.append({"title": title, "summary": summary})
+                article_list.append({"title": title, "summary": summary, "link": link})
     except Exception as error:
         print(f"Warning: could not fetch feed {feed_url} — {error}")
     return article_list

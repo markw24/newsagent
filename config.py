@@ -7,6 +7,9 @@ TOPICS = {
     "VC & Startups": [
         "https://techcrunch.com/feed/",
         "https://feeds.feedburner.com/venturebeat/SZYF",
+        "https://www.ycombinator.com/blog/rss/",
+        "https://a16z.com/feed/",
+        "https://news.crunchbase.com/feed/",
     ],
     "Geopolitics": [
         "https://feeds.bbci.co.uk/news/world/rss.xml",

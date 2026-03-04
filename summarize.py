@@ -1,13 +1,43 @@
-# summarize.py — sends article text to OpenAI API and returns bullet-point summaries per topic
+# summarize.py — sends article text to OpenAI API and returns intelligence analysis per topic
 
 import os
 import openai
 from config import OPENAI_MODEL, MAX_ARTICLES_PER_FEED
 
 SYSTEM_PROMPT = (
-    "You are a concise news editor writing a daily briefing. "
-    "Summarize the key stories in 4-6 bullet points. "
-    "Be direct and factual. Start each bullet with •"
+    "You are an intelligence analyst producing a morning briefing for a strategic "
+    "thinker who tracks technology, startups, geopolitics, and financial markets.\n\n"
+    "You will receive articles grouped by topic. Your job is NOT to summarize each "
+    "article individually. Instead, SYNTHESIZE across all articles to produce "
+    "analytical intelligence.\n\n"
+    "Produce the following sections:\n\n"
+    "SITUATION ASSESSMENT (3-5 sentences)\n"
+    "What is actually happening right now in this space? Synthesize across all the "
+    "articles to paint a coherent picture. Connect dots between articles — if one "
+    "reports a policy change and another reports a market reaction, link them. "
+    "Write in analytical prose, not bullet points.\n\n"
+    "SIGNAL VS NOISE (2-3 sentences)\n"
+    "Of everything reported today, what actually matters and what is ephemeral? "
+    "Be opinionated. If three articles cover the same non-event, say so. If one "
+    "buried detail in one article is more significant than all the headlines "
+    "combined, call it out.\n\n"
+    "IMPLICATIONS & WATCH LIST (2-4 sentences)\n"
+    "What are the second-order effects? What should the reader monitor over the "
+    "coming days and weeks? Be specific — name the companies, policies, people, "
+    "or metrics to watch. Not 'this could affect markets' but 'watch [specific "
+    "thing] because [specific reason].'\n\n"
+    "CONTRARIAN CHECK (1-2 sentences)\n"
+    "What is the consensus view across these articles, and what would need to be "
+    "true for that consensus to be wrong?\n\n"
+    "RULES:\n"
+    "- NEVER produce bullet-point summaries of individual articles.\n"
+    "- ALWAYS connect articles to each other, even across topics if relevant.\n"
+    "- Be direct and opinionated. Say 'This matters because...' not 'Some analysts believe...'\n"
+    "- If the articles are thin or repetitive, say so. Do not manufacture insight from noise.\n"
+    "- Keep total output for this topic to 150-250 words. Dense, not long.\n"
+    "- Use these exact section headers: SITUATION ASSESSMENT, SIGNAL VS NOISE, "
+    "IMPLICATIONS & WATCH LIST, CONTRARIAN CHECK.\n"
+    "- Do NOT use bullet points or bullet characters. Write in prose paragraphs."
 )
 
 
@@ -24,9 +54,9 @@ def build_article_text(article_list):
 
 
 def summarize_topic(client, topic_name, article_list):
-    """Make one OpenAI API call for a single topic and return bullet-point text."""
+    """Make one OpenAI API call for a single topic and return analytical text."""
     if not article_list:
-        return "• No articles available for this topic today."
+        return "No articles available for this topic today."
 
     article_text = build_article_text(article_list)
     user_message = f"Here are today's articles about {topic_name}:\n\n{article_text}"
@@ -34,7 +64,7 @@ def summarize_topic(client, topic_name, article_list):
     try:
         response = client.chat.completions.create(
             model=OPENAI_MODEL,
-            max_tokens=512,
+            max_tokens=800,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_message},
@@ -43,13 +73,13 @@ def summarize_topic(client, topic_name, article_list):
         return response.choices[0].message.content.strip()
     except Exception as error:
         print(f"Warning: could not summarize '{topic_name}' — {error}")
-        return "• Summary unavailable due to an error."
+        return "Analysis unavailable due to an error."
 
 
 def summarize_all_topics(articles_by_topic):
     """
-    Summarize every topic using one OpenAI API call per topic.
-    Returns a dict mapping topic name to a bullet-point string.
+    Analyze every topic using one OpenAI API call per topic.
+    Returns a dict mapping topic name to analytical text.
     Reads OPENAI_API_KEY from the environment.
     """
     api_key = os.environ.get("OPENAI_API_KEY")
@@ -61,7 +91,7 @@ def summarize_all_topics(articles_by_topic):
     summaries = {}
 
     for topic_name, article_list in articles_by_topic.items():
-        print(f"Summarizing '{topic_name}'...")
+        print(f"Analyzing '{topic_name}'...")
         summaries[topic_name] = summarize_topic(client, topic_name, article_list)
 
     return summaries

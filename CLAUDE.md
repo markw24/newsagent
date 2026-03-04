@@ -1,15 +1,17 @@
 # The Daily Edge — CLAUDE.md
 
-A personal daily briefing app that fetches RSS feeds, summarizes them with Claude AI,
-and outputs a single mobile-friendly HTML page. Runs free via GitHub Actions once per day.
+A personal intelligence briefing that runs automatically every morning.
+It fetches RSS feeds, analyzes them with OpenAI, and outputs a single
+mobile-friendly HTML page. Runs free via GitHub Actions once per day.
 
 ---
 
 ## Project Goals
 
-- Completely free to run (GitHub Actions free tier + Claude API)
+- Completely free to run (GitHub Actions free tier + OpenAI API)
 - Beginner-friendly: files under 150 lines, simple variable names
-- One output: a single `index.html` file that looks good on mobile
+- One output: a single `index.html` that looks good on mobile (including dark mode)
+- Intelligence analysis, NOT bullet-point summaries — connect dots across articles
 - Explain each file's purpose in comments at the top
 
 ---
@@ -23,10 +25,11 @@ daily-news-agent/
 ├── requirements.txt        # Python packages to install
 ├── config.py               # RSS feed URLs and topic names
 ├── fetch_feeds.py          # Downloads and parses RSS feeds
-├── summarize.py            # Sends content to Claude API for summaries
-├── build_page.py           # Assembles the final HTML page
+├── fetch_markets.py        # Fetches live market data from Yahoo Finance
+├── summarize.py            # Sends content to OpenAI for intelligence analysis
+├── build_page.py           # Assembles the final HTML page (prose format)
 ├── run.py                  # Main script — calls the above in order
-├── template.html           # HTML skeleton with a {content} placeholder
+├── template.html           # HTML skeleton with {date} and {content} placeholders
 └── .github/
     └── workflows/
         └── daily.yml       # GitHub Actions schedule (runs once per day)
@@ -38,123 +41,80 @@ daily-news-agent/
 
 | File | Purpose |
 |------|---------|
-| `config.py` | Lists the 4 topics and their RSS feed URLs. Edit this to change sources. |
-| `fetch_feeds.py` | Uses `feedparser` to download each feed and return a list of articles. |
-| `summarize.py` | Sends article text to Claude API and gets back a short summary per topic. |
-| `build_page.py` | Takes the summaries and writes them into `template.html` → `index.html`. |
-| `run.py` | The entry point. Calls fetch → summarize → build in order. |
-| `template.html` | A plain HTML file with a `{content}` marker where summaries are inserted. |
+| `config.py` | Lists topics and RSS feed URLs. Edit to change sources. |
+| `fetch_feeds.py` | Uses `feedparser` to download feeds and return article lists. |
+| `fetch_markets.py` | Uses `yfinance` to fetch market prices and daily changes. |
+| `summarize.py` | Sends articles to OpenAI with an intelligence analyst prompt. Returns analytical prose per topic with sections: Situation Assessment, Signal vs Noise, Implications & Watch List, Contrarian Check. |
+| `build_page.py` | Takes analysis text, parses section headers, renders as styled HTML prose (not bullet lists). Includes source links per topic. |
+| `run.py` | Entry point. Calls fetch → markets → summarize → build in order. |
+| `template.html` | HTML skeleton with dark mode support and typography for prose reading. |
 | `daily.yml` | Tells GitHub to run `run.py` every morning and commit `index.html`. |
+
+---
+
+## Output Format
+
+The AI produces ANALYTICAL PROSE, not bullet-point summaries. Each topic section has:
+1. **Situation Assessment** — What's actually happening, synthesized across articles
+2. **Signal vs Noise** — What matters vs what's ephemeral
+3. **Implications & Watch List** — Second-order effects, specific things to monitor
+4. **Contrarian Check** — Consensus view and what would break it
+
+`build_page.py` parses these sections into styled `<h3>` headers and `<p>` paragraphs
+inside a `<div class="analysis">` wrapper. It also appends source article links.
 
 ---
 
 ## Tech Stack
 
 - **Language:** Python 3.11+
-- **RSS parsing:** `feedparser` (free, no API key needed)
-- **Summarization:** Anthropic Claude API (`claude-haiku-4-5-20251001` — cheapest model)
+- **RSS parsing:** `feedparser`
+- **Market data:** `yfinance`
+- **Analysis:** OpenAI API (`gpt-4o-mini`)
 - **Output:** Static HTML (no server, no database)
-- **Automation:** GitHub Actions (free tier: 2,000 minutes/month)
-- **Hosting:** GitHub Pages (free static site hosting)
+- **Automation:** GitHub Actions (free tier)
+- **Hosting:** GitHub Pages (free)
 
 ---
 
 ## Coding Rules (enforce these always)
 
-1. **File length:** Keep every file under 150 lines. Split logic into a new file if needed.
-2. **Variable names:** Use plain English words — `article_list`, not `al` or `artLst`.
+1. **File length:** Keep every file under 150 lines. Split if needed.
+2. **Variable names:** Use plain English — `article_list`, not `al`.
 3. **No paid services:** Do not suggest services that require a credit card to start.
-4. **Comments:** Add a one-line comment at the top of every file explaining what it does.
-5. **No classes unless necessary:** Use plain functions. Keep it procedural and readable.
-6. **Error handling:** Use simple `try/except` with a `print()` message. Don't raise cryptic errors.
-7. **No external databases:** All data lives in memory during the run. Only output is `index.html`.
-8. **Secrets via environment variables:** API keys come from `os.environ`, never hardcoded.
+4. **Comments:** One-line comment at top of every file explaining what it does.
+5. **No classes unless necessary:** Plain functions, procedural and readable.
+6. **Error handling:** Simple `try/except` with `print()`. No cryptic errors.
+7. **No external databases:** All data in memory. Only output is `index.html`.
+8. **Secrets via environment variables:** API keys from `os.environ`, never hardcoded.
 
 ---
 
-## Topics (defined in config.py)
+## OpenAI API Usage Rules
 
-The app covers exactly 4 topics. Each topic has a name and a list of RSS feed URLs.
-
-```python
-TOPICS = {
-    "Technology": [
-        "https://feeds.arstechnica.com/arstechnica/index",
-        "https://www.wired.com/feed/rss",
-    ],
-    "Science": [
-        "https://www.sciencedaily.com/rss/all.xml",
-        "https://rss.nytimes.com/services/xml/rss/nyt/Science.xml",
-    ],
-    "World News": [
-        "https://feeds.bbci.co.uk/news/world/rss.xml",
-        "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
-    ],
-    "Business": [
-        "https://feeds.a.dj.com/rss/RSSMarketsMain.xml",
-        "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",
-    ],
-}
-```
+- **Model:** Always use `gpt-4o-mini` — cheapest and fast enough.
+- **Max tokens:** 800 per topic (increased from 512 to support prose analysis).
+- **Prompt style:** System prompt contains the full intelligence analyst instructions. User prompt contains the raw article text.
+- **One call per topic:** Batch all articles for a topic into a single API call.
 
 ---
 
-## Claude API Usage Rules
+## Future Direction (Phase 2)
 
-- **Model:** Always use `claude-haiku-4-5-20251001` — it is the cheapest and fast enough.
-- **Max articles per topic:** Summarize at most 5 articles per topic to control token usage.
-- **Prompt style:** Keep system prompts under 50 words. User prompts should contain the raw article text.
-- **One call per topic:** Batch all articles for a topic into a single API call, not one call per article.
+This project will evolve into a personal intelligence system that combines:
+1. RSS feeds (current — world news)
+2. Personally saved articles from an iOS app (Save to KB, stored in Supabase)
+3. Multi-day continuity (previous briefings fed back as context)
 
-### Example prompt structure
-
-```
-System: You are a concise news editor. Summarize the key points from these articles in 3–5 bullet points. Be brief and factual.
-
-User: [paste article headlines + first paragraphs here]
-```
-
----
-
-## GitHub Actions Setup
-
-The workflow file (`.github/workflows/daily.yml`) should:
-
-1. Run on a cron schedule: `0 7 * * *` (7 AM UTC daily)
-2. Check out the repo
-3. Install Python dependencies from `requirements.txt`
-4. Run `python run.py`
-5. Commit and push the updated `index.html` back to the repo
-
-Required GitHub secret: `ANTHROPIC_API_KEY` — set this in repo Settings → Secrets.
-
----
-
-## Output Format
-
-`index.html` must:
-- Work on mobile screens (use `max-width: 600px` and readable font sizes)
-- Show today's date at the top
-- Have one section per topic with a heading and bullet-point summaries
-- Load instantly (no JavaScript, no external fonts, inline CSS only)
-- Be a complete standalone file (no dependencies)
-
----
-
-## Getting Started (for beginners)
-
-1. Fork this repo on GitHub
-2. Add your `ANTHROPIC_API_KEY` to repo Settings → Secrets → Actions
-3. Enable GitHub Pages: Settings → Pages → Source: main branch, `/` (root)
-4. Push any change to trigger the first run, or wait for the daily schedule
-5. Your briefing page will be live at `https://your-username.github.io/daily-news-agent/`
+The synthesis layer will cross-reference personal research with world events.
+See the architecture blueprint for full Phase 2 spec.
 
 ---
 
 ## Common Mistakes to Avoid
 
-- Do not use `f-strings` with multi-line prompts — use string concatenation or `textwrap.dedent()`.
-- Do not import `anthropic` inside a loop — import once at the top of the file.
-- Do not store article content in files — process everything in memory and discard it.
-- Do not use `requests` to fetch RSS — `feedparser` handles this already.
+- Do not produce bullet-point summaries. The prompt explicitly requests prose analysis.
+- Do not import `openai` inside a loop — import once at the top.
+- Do not store article content in files — process in memory, discard after.
+- Do not use `requests` for RSS — `feedparser` handles this.
 - Do not commit `.env` files — use GitHub Secrets for the API key.

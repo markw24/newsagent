@@ -31,6 +31,13 @@
       font-weight: 800;
       letter-spacing: -0.5px;
     }
+    header .subtitle {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #888;
+      margin-top: 2px;
+    }
     header p.date {
       font-size: 0.85rem;
       color: #666;
@@ -39,7 +46,7 @@
     section {
       background: #fff;
       border-radius: 8px;
-      padding: 16px 20px;
+      padding: 20px;
       margin-bottom: 16px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }
@@ -49,8 +56,30 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: #444;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #eee;
     }
+    /* Analysis section headers from the AI output */
+    section h3, section strong {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #666;
+    }
+    section .analysis {
+      font-size: 0.93rem;
+      line-height: 1.65;
+      color: #333;
+    }
+    section .analysis p {
+      margin-bottom: 12px;
+    }
+    section .analysis p:last-child {
+      margin-bottom: 0;
+    }
+    /* Bullet list fallback (for any residual bullet output) */
     section ul {
       list-style: none;
       padding: 0;
@@ -93,126 +122,88 @@
     .sources { margin-top: 8px; padding-top: 8px; border-top: 1px solid #eee; }
     .sources a { font-size: 12px; color: #1a73e8; text-decoration: none; display: inline-block; margin: 2px 8px 2px 0; }
     .sources a:hover { text-decoration: underline; }
+
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      body { background: #111; color: #ddd; }
+      section { background: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+      section h2 { color: #aaa; border-bottom-color: #333; }
+      section h3, section strong { color: #999; }
+      section .analysis { color: #ccc; }
+      header { border-bottom-color: #ddd; }
+      header h1 { color: #eee; }
+      header .subtitle { color: #666; }
+      header p.date { color: #888; }
+      footer { color: #555; }
+      .market-card { background: #222; border-color: #333; }
+      .market-name { color: #777; }
+      .market-price { color: #ddd; }
+      .sources a { color: #5b9bd5; }
+      section ul li { border-bottom-color: #2a2a2a; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>The Daily Edge</h1>
+      <div class="subtitle">Intelligence Briefing</div>
       <p class="date">Wednesday, March 4, 2026</p>
     </header>
-      <section class="market-dashboard">
-    <h2>Markets</h2>
-    <div class="market-grid">
-    <div class="market-card down">
-      <div class="market-name">S&P 500</div>
-      <div class="market-price">6,816.63</div>
-      <div class="market-change">-0.94%</div>
-    </div>
-    <div class="market-card down">
-      <div class="market-name">NASDAQ</div>
-      <div class="market-price">22,516.69</div>
-      <div class="market-change">-1.02%</div>
-    </div>
-    <div class="market-card down">
-      <div class="market-name">Dow Jones</div>
-      <div class="market-price">48,501.27</div>
-      <div class="market-change">-0.83%</div>
-    </div>
-    <div class="market-card up">
-      <div class="market-name">VIX</div>
-      <div class="market-price">23.57</div>
-      <div class="market-change">+9.88%</div>
-      <div class="vix-label">Moderate Fear</div>
-    </div>
-    <div class="market-card up">
-      <div class="market-name">10Y Treasury</div>
-      <div class="market-price">4.06%</div>
-      <div class="market-change">+0.20%</div>
-    </div>
-    <div class="market-card up">
-      <div class="market-name">Bitcoin</div>
-      <div class="market-price">$68,736</div>
-      <div class="market-change">+0.64%</div>
-    </div>
-    </div>
-  </section>
+    <section><h2>Markets</h2><div class="market-grid"><div class="market-card up"><div class="market-name">S&P 500</div><div class="market-price">6,870</div><div class="market-change">+0.78%</div></div><div class="market-card up"><div class="market-name">NASDAQ</div><div class="market-price">22,807</div><div class="market-change">+1.29%</div></div><div class="market-card up"><div class="market-name">Dow Jones</div><div class="market-price">48,739</div><div class="market-change">+0.49%</div></div><div class="market-card down"><div class="market-name">VIX</div><div class="market-price">21.21</div><div class="market-change">-10.01%</div><div class="vix-label">Moderate Fear</div></div><div class="market-card up"><div class="market-name">10Y Treasury</div><div class="market-price">4.08</div><div class="market-change">+0.59%</div></div><div class="market-card up"><div class="market-name">Bitcoin</div><div class="market-price">73,178</div><div class="market-change">+7.14%</div></div></div></section>
 
-  <section>
-    <h2>VC & Startups</h2>
-    <ul>
-    <li>AI startups are reportedly selling the same equity at different valuations, employing a new mechanism to enhance their market appeal and attain unicorn status.</li>
-    <li>A suite of hacking tools originally developed for government use is now in the hands of cybercriminals, exploiting vulnerabilities in iPhones, as noted by security researchers.</li>
-    <li>Alibaba's Qwen tech lead, Junyang Lin, has stepped down, causing concern within the company following a major AI model launch.</li>
-    <li>In September, three companies accounted for a staggering 90% of the record $189 billion in global VC investments, underscoring the dominance of AI startups in funding.</li>
-    <li>TikTok experienced a service interruption in the U.S., marking the second outage related to Oracle's infrastructure since ByteDance's sale of the app's U.S. operations.</li>
-    <li>Google has launched Gemini 3.1 Flash Lite, significantly cutting costs and improving speed for enterprise users compared to its Pro version.</li>
-  </ul>
-  <div class="sources">
-    <a href="https://techcrunch.com/2026/03/03/why-ai-startups-are-selling-the-same-equity-at-two-different-prices/">Why AI startups are selling the same equity at two different prices</a>
-    <a href="https://techcrunch.com/2026/03/03/a-suite-of-government-hacking-tools-targeting-iphones-is-now-being-used-by-cybercriminals/">A suite of government hacking tools targeting iPhones is now being used by cybercriminals</a>
-    <a href="https://techcrunch.com/2026/03/03/alibabas-qwen-tech-lead-steps-down-after-major-ai-push/">Alibaba’s Qwen tech lead steps down after major AI push</a>
-    <a href="https://techcrunch.com/2026/03/03/openai-anthropic-waymo-dominated-189-billion-vc-investments-february-crunchbase-report/">Just three companies dominated the $189B in VC investments last month</a>
-    <a href="https://techcrunch.com/2026/03/03/tiktok-down-for-some-in-u-s-thanks-to-second-oracle-outage-since-sale/">TikTok down for some in US, thanks to second Oracle outage since sale</a>
-  </div>
-  </section>
+<section>
+  <h2>VC & Startups</h2>
+  <div class="analysis"><h3>Situation Assessment</h3>
+<p>The landscape of venture capital and startups is currently characterized by significant shifts, particularly driven by major players like Google. By reducing its Play Store commission and introducing new support for third-party app stores, Google is altering competitive dynamics in the app ecosystem—this could encourage more startups to innovate outside the Play Store. Meanwhile, PopSockets showcases an alternative startup path, illustrating that bootstrapping can work effectively without traditional VC funding, highlighting a potential pivot among founders toward self-sustainability and strategic partnerships over external capital. In the AI sector, advancements from companies like Microsoft and Google's latest Gemini models reflect an intensifying race for efficiency and capability in generative AI, establishing new benchmarks that startups will need to meet to remain competitive.</p>
+<h3>Signal Vs Noise</h3>
+<p>Among the reported events, Google’s Play Store commission reduction is particularly relevant; it signifies a potential shift in how app stores operate and could catalyze innovation among smaller developers. In contrast, the launch of new products from Apple and details about PopSockets’ founder do not carry the same weight, as they reflect established trends rather than disruptive changes.</p>
+<h3>Implications & Watch List</h3>
+<p>Investors should closely monitor how the commission changes at Google impact app development trends and the broader implications for popular platforms like Epic Games. Additionally, watching how other tech giants respond could indicate a significant evolution in app marketplace dynamics. In the AI sector, tracking developments from Microsoft’s new multimodal model and Alibaba’s Qwen AI team’s shifts will be crucial to understanding competitive pressures and innovation trajectories in generative AI.</p>
+<h3>Contrarian Check</h3>
+<p>The consensus suggests that Google’s commission change is a strategic move to retain control and encourage innovation. However, if smaller competitors fail to emerge or if developers find the terms unappealing, this could undermine the expected growth and shift in startup dynamics, countering the prevailing optimism around these changes.</p></div>
+  <div class="sources"><a href="https://techcrunch.com/2026/03/04/google-settles-with-epic-games-drops-its-play-store-commissions-to-20/" target="_blank">Google settles with Epic Games, drops its Play Store commiss...</a> <a href="https://techcrunch.com/video/his-house-burned-down-he-used-the-insurance-money-to-build-popsockets/" target="_blank">His house burned down. He used the insurance money to build ...</a> <a href="https://techcrunch.com/2026/03/04/u-s-and-eu-police-shut-down-leakbase-a-site-accused-of-sharing-stolen-passwords-and-hacking-tools/" target="_blank">US and EU police shut down LeakBase, a site accused of shari...</a> <a href="https://techcrunch.com/2026/03/04/everything-apple-announced-macbook-neo-iphone-17e-ipad-air/" target="_blank">MacBook Neo, iPhone 17e, and everything else Apple announced...</a> <a href="https://techcrunch.com/2026/03/04/https-techcrunch-com-2026-03-04-google-search-rolls-out-geminis-canvas-in-ai-mode-to-all-us-users/" target="_blank">Google Search rolls out Gemini’s Canvas in AI Mode to all US...</a> <a href="https://venturebeat.com/technology/black-forest-labs-new-self-flow-technique-makes-training-multimodal-ai" target="_blank">Black Forest Labs' new Self-Flow technique makes training mu...</a> <a href="https://venturebeat.com/technology/microsoft-built-phi-4-reasoning-vision-15b-to-know-when-to-think-and-when" target="_blank">Microsoft built Phi-4-reasoning-vision-15B to know when to t...</a> <a href="https://venturebeat.com/security/ai-supply-chain-visibility-gap-anthropic-pentagon-ciso-audit" target="_blank">Pentagon vendor cutoff exposes the AI dependency map most en...</a></div>
+</section>
 
-  <section>
-    <h2>Geopolitics</h2>
-    <ul>
-    <li>Gas and oil prices rise sharply while stock markets decline amid escalating conflict in the Middle East, raising concerns over its duration.</li>
-    <li>US and Ecuador have launched a joint operation against drug trafficking, targeting designated terrorist organizations in Ecuador.</li>
-    <li>China's annual political meetings, known as the 'two sessions', are underway, highlighting the key priorities of the nation.</li>
-    <li>TikTok announces it will not implement end-to-end encryption for direct messages, citing user safety as the concern.</li>
-    <li>A South Korean woman and two doctors have been convicted of the murder of a newborn baby, amidst a lack of regulatory framework on abortion in the country.</li>
-    <li>UK will deploy the HMS Dragon warship to Cyprus with anti-drone capabilities, amid regional tensions.</li>
-  </ul>
-  <div class="sources">
-    <a href="https://www.bbc.com/news/articles/cr5lz0vgy52o?at_medium=RSS&at_campaign=rss">Gas and oil prices soar and shares tumble on fears conflict could escalate</a>
-    <a href="https://www.bbc.com/news/articles/cgjzz4gn64zo?at_medium=RSS&at_campaign=rss">US and Ecuador forces launch operation to fight drug trafficking</a>
-    <a href="https://www.bbc.com/news/articles/c2lrxyke7kro?at_medium=RSS&at_campaign=rss">What to know about the 'two sessions',  China's biggest political meeting</a>
-    <a href="https://www.bbc.com/news/articles/cly2m5e5ke4o?at_medium=RSS&at_campaign=rss">TikTok won't protect DMs with controversial privacy tech, saying it would put users at risk</a>
-    <a href="https://www.bbc.com/news/articles/c2k88j5x9wdo?at_medium=RSS&at_campaign=rss">South Korea woman and doctors guilty of murder of newborn baby</a>
-  </div>
-  </section>
+<section>
+  <h2>Geopolitics</h2>
+  <div class="analysis"><h3>Situation Assessment</h3>
+<p>Tensions in the Middle East are escalating amid ongoing Israeli attacks and US military involvement, especially following the sinking of an Iranian warship. This growing conflict is further complicated by Iran's recent postponement of Supreme Leader Khamenei's funeral, indicating that the nation is on high alert. The political landscape is also shifting, with Spain's Prime Minister openly challenging former President Trump’s threats regarding trade and military actions, positions that could reshape alliances in Europe as the continent reassesses its relationship with the US. Notably, the US Treasury's indication of increased tariffs suggests that economic considerations may also influence international dynamics amidst these tensions.</p>
+<h3>Signal Vs Noise</h3>
+<p>While articles reporting on the increased US tariffs and Spain's political stance against Trump may seem significant, they largely echo ongoing discussions without introducing new insights. The potential impact of Iran's military decisions and the repercussions from the sinking of its warship are far more critical, suggesting an imminent shift in military engagement strategies. This situation is likely to have lasting effects on regional geopolitics and global energy markets.</p>
+<h3>Implications & Watch List</h3>
+<p>Watch the developments surrounding shipping insurance and maritime safety as the risks escalate, particularly concerning the Strait of Hormuz, which is vital for global oil transport. Companies like Lloyd's will be pivotal in recalibrating premiums and coverage policies. Additionally, monitor Iran’s military responses and any further escalatory measures from Israel. The reactions of European nations like Spain will be crucial in gauging shifts in US alliances and foreign policy approaches moving forward.</p>
+<h3>Contrarian Check</h3>
+<p>The consensus appears to be that the conflict is primed to escalate into a broader confrontation. To disrupt this narrative, substantial diplomatic engagements between Iran and Western allies would need to occur, along with a significant decrease in military confrontations to establish a path toward de-escalation.</p></div>
+  <div class="sources"><a href="https://www.bbc.com/news/articles/clygglq6v9go?at_medium=RSS&at_campaign=rss" target="_blank">Iran postpones Khamenei funeral as US-Israeli bombardment co...</a> <a href="https://www.bbc.com/news/articles/c0e55g03v2zo?at_medium=RSS&at_campaign=rss" target="_blank">US sub sinks Iranian warship in Indian Ocean, Hegseth says</a> <a href="https://www.bbc.com/news/articles/c93wwq1n542o?at_medium=RSS&at_campaign=rss" target="_blank">Spain's Pedro Sánchez hits back at Trump threat to sever tra...</a> <a href="https://www.bbc.com/news/articles/cjwzzq70qgvo?at_medium=RSS&at_campaign=rss" target="_blank">Higher tariffs likely this week, says US Treasury</a> <a href="https://www.bbc.com/news/articles/cvg11pne0rro?at_medium=RSS&at_campaign=rss" target="_blank">Israel tells people in large parts of southern Lebanon to le...</a> <a href="https://news.sky.com/story/trumps-solutions-to-iranian-shipping-threat-leave-insurance-sector-unimpressed-13515171" target="_blank">Trump's solutions to Iranian shipping threat leave insurance...</a> <a href="https://news.sky.com/story/why-europe-is-finally-standing-up-to-donald-trump-13515262" target="_blank">Why Europe is finally standing up to Donald Trump</a> <a href="https://news.sky.com/story/unafraid-of-the-wrath-of-donald-trump-spains-pm-pedro-sanchez-has-said-no-to-war-13515057" target="_blank">Spain's PM is not mincing his words over Trump's war on Iran</a></div>
+</section>
 
-  <section>
-    <h2>World News</h2>
-    <ul>
-    <li>Israel has commenced extensive military strikes on Iranian infrastructure, coinciding with U.S. troop deployments in the region, following the death of four U.S. soldiers from an Iranian drone attack.</li>
-    <li>The Israeli government is leveraging the ongoing conflict with Iran to target Hezbollah and reshape dynamics in the Middle East, supported by U.S. military resources.</li>
-    <li>Amid allegations of inaction, the Nigerian military faces criticism for its failure to curb persistent militant attacks and abductions within the country.</li>
-    <li>Senior Gen. Min Aung Hlaing of Myanmar's junta plans to pursue a civilian presidential role following upcoming elections, aiming to enhance the regime's legitimacy.</li>
-    <li>The U.S. strikes on Iran have prompted condemnation from China, complicating trade negotiations between the two nations while potentially testing their fragile truce.</li>
-  </ul>
-  <div class="sources">
-    <a href="https://www.nytimes.com/live/2026/03/03/world/iran-war-israel-lebanon-trump">Iran Live Updates: Israel Begins ‘Broad Wave of Strikes’ on Iran’s Infrastructure</a>
-    <a href="https://www.nytimes.com/2026/03/03/world/middleeast/israel-iran-hezbollah.html">Israel Seizes Chance to Crush Hezbollah and Remake Mideast Amid Iran War</a>
-    <a href="https://www.nytimes.com/2026/03/03/world/africa/nigeria-security-forces-us-intervention.html">U.S. Hunts for Militants as the Nigerian Military Is Accused of Inaction</a>
-    <a href="https://www.nytimes.com/2026/03/03/world/asia/myanmar-junta-president-min-aung-hlaing.html">In Myanmar, Junta Leader Eyes the Title of President</a>
-    <a href="https://www.nytimes.com/2026/03/03/world/asia/us-iran-china-trump-xi.html">U.S. Attacks on Iran Test Fragile Truce With China</a>
-  </div>
-  </section>
+<section>
+  <h2>World News</h2>
+  <div class="analysis"><h3>Situation Assessment</h3>
+<p>The geopolitical landscape is shifting rapidly, particularly in the Middle East, where intensified U.S. military actions in Iran are coinciding with heightened European military deployments and Turkish interventions against Iranian missile threats. As the conflict escalates, countries are bracing for significant ripple effects, including soaring energy costs and the potential for a new wave of refugees, which would further destabilize the region. Concurrently, in Nepal, a transformative election reflecting youth discontent with corruption signals potential shifts in governance, while in Cuba, crippling fuel shortages driven by external pressures are decimating the tourism sector, significantly impacting its economy.</p>
+<h3>Signal Vs Noise</h3>
+<p>The ongoing military escalation in Iran is the most critical issue presented today, as it has immediate implications for regional stability and global energy markets. While the developments in Nepal and Cuba are noteworthy, they pale in comparison to the looming threats posed by the Middle East crisis, which could potentially reshape global alliances and economic conditions.</p>
+<h3>Implications & Watch List</h3>
+<p>Monitor U.S. military strategies in Iraq and Iran, with particular attention to how escalating conflicts will affect global oil prices and European energy security. Watch for potential reactions from Russia and China, as they may capitalize on perceived U.S. weaknesses in the region. Additionally, the outcomes of Nepal's election should be closely observed to assess shifts in political sentiment and governance patterns among youth-driven movements. Finally, track how Cuba’s deteriorating economic situation influences its relationship with neighboring states and its capacity to manage the tourism collapse.</p>
+<h3>Contrarian Check</h3>
+<p>The consensus view among these articles emphasizes an escalating Middle East conflict and its broad repercussions, particularly on energy markets and regional stability. For this perspective to shift dramatically, there would need to be a sudden and significant de-escalation initiated by diplomatic negotiations among key players, which currently seems unlikely given the prevailing tensions.</p></div>
+  <div class="sources"><a href="https://www.nytimes.com/live/2026/03/04/world/iran-war-israel-lebanon-trump" target="_blank">Live Updates: No Letup in Strikes on Iran, U.S. Says, as Mid...</a> <a href="https://www.nytimes.com/2026/03/04/world/europe/iran-trump-world-reaction.html" target="_blank">Global Leaders Brace for the Fallout From a Fast Metastasizi...</a> <a href="https://www.nytimes.com/2026/03/04/world/asia/nepal-election-gen-z-what-to-know.html" target="_blank">What to Know About Nepal's Gen Z Election</a> <a href="https://www.nytimes.com/2026/03/04/world/americas/cuba-tourism-travel-canada-trump.html" target="_blank">With Fuel Running Out and Canadian Flights Suspended, Cuba’s...</a> <a href="https://www.nytimes.com/2026/03/03/world/middleeast/iran-mojtaba-khamenei-successor.html" target="_blank">Ayatollah Ali Khamenei’s Son Emerges as Leading Choice to Be...</a></div>
+</section>
 
-  <section>
-    <h2>Financial News</h2>
-    <ul>
-    <li>U.S. stocks decline sharply, particularly in the tech sector, with Nvidia falling 16% amid fears following China's DeepSeek announcement.</li>
-    <li>Gold prices fell by 1.4% and silver by 2.5%, continuing a downward trend in the precious metals market.</li>
-    <li>Analysts argue the panic over U.S. tech giants related to the AI market decline is unfounded and not indicative of long-term market health.</li>
-    <li>Record prices for Arabica coffee are reported as economic tensions between the U.S. and Colombia affect trading dynamics.</li>
-    <li>Asian stock markets plummeted, led by significant pressure in South Korea, as energy cost concerns grow due to the conflict in Iran.</li>
-    <li>Target plans a significant investment to refresh its stores and increase workforce, focusing on home décor and popular trends under new leadership.</li>
-  </ul>
-  <div class="sources">
-    <a href="https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main">Stocks Sink in Broad AI Rout Sparked by China's DeepSeek</a>
-    <a href="https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main">Comex Gold, Silver Settle Lower</a>
-    <a href="https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main">DeepSeek Won't Sink U.S. AI Titans</a>
-    <a href="https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main">Financial Services Roundup: Market Talk</a>
-    <a href="https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main">Arabica Coffee Prices Hit Record on U.S., Colombia Tariff Spat</a>
-  </div>
-  </section>
-    <footer>Generated by The Daily Edge &mdash; powered by OpenAI</footer>
+<section>
+  <h2>Financial News</h2>
+  <div class="analysis"><h3>Situation Assessment</h3>
+<p>The financial markets are currently experiencing significant turbulence, particularly within the tech sector. The steep decline in AI infrastructure stocks, notably Nvidia’s 16% drop, appears to be linked to escalating concerns surrounding China's AI initiatives, as highlighted by the emergence of the DeepSeek AI model. Despite these panic-driven selloffs, some analysts argue that the fundamental business models of U.S. AI titans remain robust, suggesting the market's reaction may be overblown. In other commodities, gold and silver have also taken hits, reflecting investor caution amid general market instability, while liquefied natural gas (LNG) prices have surged, benefiting companies like Shell and ExxonMobil due to ongoing geopolitical pressures.</p>
+<h3>Signal Vs Noise</h3>
+<p>The ongoing AI market correction is a crucial development that warrants attention, overshadowing the less significant fluctuations in gold and silver prices, which seem more like background noise in this context. While the drop in precious metals indicates market caution, the pivotal issue is the reaction to AI developments stemming from China. The concerns tied to DeepSeek could signify broader geopolitical tensions impacting tech investments.</p>
+<h3>Implications & Watch List</h3>
+<p>Investors should closely monitor Nvidia and other AI infrastructure providers as the fallout from the DeepSeek controversy unfolds, which could dictate trends in tech market sentiment. Additionally, keep an eye on liquefied natural gas prices and the operations of key players like Shell and ExxonMobil, as escalating global conflicts could drive further gains. The rise in U.S. gas prices also suggests potential market shifts; watch for related effects on consumer spending.</p>
+<h3>Contrarian Check</h3>
+<p>While many analysts view the selloff in AI stocks as a straightforward overreaction, a contrary perspective could emerge if DeepSeek proves to be more game-changing than currently assumed, fundamentally altering competitive dynamics in the AI space and prompting a reevaluation of U.S. tech positions. If AI companies begin to report unexpectedly strong earnings despite geopolitical pressures, it could challenge the prevailing narrative of panic.</p></div>
+  <div class="sources"><a href="https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main" target="_blank">Stocks Sink in Broad AI Rout Sparked by China's DeepSeek</a> <a href="https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main" target="_blank">Comex Gold, Silver Settle Lower</a> <a href="https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main" target="_blank">DeepSeek Won't Sink U.S. AI Titans</a> <a href="https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main" target="_blank">Financial Services Roundup: Market Talk</a> <a href="https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main" target="_blank">Arabica Coffee Prices Hit Record on U.S., Colombia Tariff Sp...</a> <a href="https://www.nytimes.com/2026/03/04/business/iran-shahed-drones-missiles-us-war.html" target="_blank">What to Know About Iran’s Drones, Which Are Cheap to Launch ...</a> <a href="https://www.nytimes.com/2026/03/04/business/energy-environment/natural-gas-prices-lng-shell-exxon-war-iran.html" target="_blank">Liquid Natural Gas Exporters Like Shell and ExxonMobil Could...</a> <a href="https://www.nytimes.com/2026/03/04/business/iran-us-israel-war-investing-stocks-bonds.html" target="_blank">The Best Playbook for Investing During a War Is Usually Doin...</a></div>
+</section>
+    <footer>Generated by The Daily Edge &mdash; Intelligence Briefing</footer>
   </div>
 </body>
 </html>

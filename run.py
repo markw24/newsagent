@@ -17,10 +17,10 @@ def main():
     market_data = fetch_markets()
 
     print("\n[3/4] Summarizing with OpenAI...")
-    summaries_by_topic = summarize_all_topics(articles_by_topic)
+    summaries_by_topic, synthesis_text = summarize_all_topics(articles_by_topic)
 
     print("\n[4/4] Building index.html...")
-    build_html(summaries_by_topic, articles_by_topic, market_data)
+    build_html(summaries_by_topic, articles_by_topic, market_data, synthesis_text)
 
     print("\nDone. Open index.html to view your daily briefing.")
 

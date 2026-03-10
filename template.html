@@ -122,6 +122,22 @@
     .sources { margin-top: 8px; padding-top: 8px; border-top: 1px solid #eee; }
     .sources a { font-size: 12px; color: #1a73e8; text-decoration: none; display: inline-block; margin: 2px 8px 2px 0; }
     .sources a:hover { text-decoration: underline; }
+    /* Signal Box table */
+    .signal-box { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 4px; }
+    .signal-box th { text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; color: #888; padding: 4px 6px; border-bottom: 1px solid #e0e0e0; }
+    .signal-box td { padding: 6px 6px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+    .signal-box tbody tr:last-child td { border-bottom: none; }
+    .sb-signal { font-weight: 600; color: #333; white-space: nowrap; }
+    .sb-direction { font-weight: 700; font-size: 0.78rem; white-space: nowrap; }
+    .sb-up { color: #2a9d2a; }
+    .sb-down { color: #d32f2f; }
+    .sb-watch { color: #e07a00; }
+    .sb-neutral { color: #888; }
+    .sb-comment { color: #555; }
+    /* Theme of the Day card */
+    .theme-card { border-left: 3px solid #1a73e8; padding: 10px 14px; background: #f0f6ff; border-radius: 0 6px 6px 0; }
+    .theme-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #1a73e8; margin-bottom: 6px; }
+    .theme-card p { font-size: 0.9rem; line-height: 1.6; color: #333; margin: 0; }
 
     /* Dark mode */
     @media (prefers-color-scheme: dark) {
@@ -140,6 +156,13 @@
       .market-price { color: #ddd; }
       .sources a { color: #5b9bd5; }
       section ul li { border-bottom-color: #2a2a2a; }
+      .signal-box th { color: #666; border-bottom-color: #333; }
+      .signal-box td { border-bottom-color: #2a2a2a; }
+      .sb-signal { color: #ccc; }
+      .sb-comment { color: #999; }
+      .theme-card { background: #1a2a3a; border-left-color: #5b9bd5; }
+      .theme-label { color: #5b9bd5; }
+      .theme-card p { color: #ccc; }
     }
   </style>
 </head>

@@ -5,22 +5,27 @@ OPENAI_MODEL = "gpt-4o-mini"
 
 TOPICS = {
     "VC & Startups": [
-        "https://techcrunch.com/feed/",
-        "https://feeds.feedburner.com/venturebeat/SZYF",
-        "https://www.ycombinator.com/blog/rss/",
-        "https://a16z.com/feed/",
-        "https://news.crunchbase.com/feed/",
+        {"url": "https://www.ycombinator.com/blog/rss/", "tier": 1, "name": "YC Blog"},
+        {"url": "https://a16z.com/feed/", "tier": 1, "name": "a16z"},
+        {"url": "https://news.crunchbase.com/feed/", "tier": 2, "name": "Crunchbase"},
+        {"url": "https://techcrunch.com/feed/", "tier": 2, "name": "TechCrunch"},
+        {"url": "https://feeds.feedburner.com/venturebeat/SZYF", "tier": 3, "name": "VentureBeat"},
     ],
     "Geopolitics": [
-        "https://feeds.bbci.co.uk/news/world/rss.xml",
-        "https://feeds.skynews.com/feeds/rss/world.xml",
+        {"url": "https://feeds.bbci.co.uk/news/world/rss.xml", "tier": 1, "name": "BBC World"},
+        {"url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml", "tier": 1, "name": "NYT World"},
+        {"url": "https://feeds.skynews.com/feeds/rss/world.xml", "tier": 2, "name": "Sky News"},
     ],
     "World News": [
-        "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
-        "https://feeds.reuters.com/reuters/worldNews",
+        {"url": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=US:en&hl=en-US&gl=US", "tier": 1, "name": "Reuters via Google"},
+        {"url": "https://feeds.bbci.co.uk/news/rss.xml", "tier": 1, "name": "BBC Top"},
+        {"url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml", "tier": 1, "name": "NYT Home"},
     ],
     "Financial News": [
-        "https://feeds.a.dj.com/rss/RSSMarketsMain.xml",
-        "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",
+        {"url": "https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines", "tier": 1, "name": "MarketWatch"},
+        {"url": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml", "tier": 1, "name": "NYT Business"},
+        {"url": "https://seekingalpha.com/market_currents.xml", "tier": 2, "name": "Seeking Alpha"},
+        {"url": "https://feeds.finance.yahoo.com/rss/2.0/headline?s=^GSPC&region=US&lang=en-US", "tier": 2, "name": "Yahoo Finance"},
+        {"url": "https://www.investing.com/rss/news.rss", "tier": 3, "name": "Investing.com"},
     ],
 }

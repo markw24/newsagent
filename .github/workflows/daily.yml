@@ -4,7 +4,7 @@ name: Daily Briefing
 
 on:
   schedule:
-    - cron: "0 7 * * *"   # 7 AM UTC every day
+    - cron: "0 13 * * *"  # 8 AM EST (UTC-5) every day
   workflow_dispatch:        # allows manual trigger from GitHub UI
 
 permissions:

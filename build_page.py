@@ -1,5 +1,6 @@
 # build_page.py — assembles the final index.html from template, analysis, markets, and signals
 
+import html
 from datetime import datetime, timezone
 from format_html import (
     format_market_html,
@@ -7,10 +8,11 @@ from format_html import (
     format_sources_html,
     format_signal_box_html,
     format_theme_html,
+    format_alpha_html,
 )
 
 
-def build_html(summaries_by_topic, articles_by_topic, market_data, signal_box="", theme=""):
+def build_html(summaries_by_topic, articles_by_topic, market_data, signal_box="", theme="", alpha=""):
     """Assemble the final index.html from template, analysis, and market data."""
 
     today = datetime.now(timezone.utc).strftime("%A, %B %-d, %Y")
@@ -21,10 +23,14 @@ def build_html(summaries_by_topic, articles_by_topic, market_data, signal_box=""
     if market_html:
         content_parts.append(market_html)
 
-    # Signal box + theme appear after markets, before topic sections
+    # Signal box, alpha capture, and theme appear after markets, before topic sections
     signal_html = format_signal_box_html(signal_box)
     if signal_html:
         content_parts.append(signal_html)
+
+    alpha_html = format_alpha_html(alpha)
+    if alpha_html:
+        content_parts.append(alpha_html)
 
     theme_html = format_theme_html(theme)
     if theme_html:
@@ -36,7 +42,7 @@ def build_html(summaries_by_topic, articles_by_topic, market_data, signal_box=""
         sources_html = format_sources_html(articles_by_topic.get(topic_name, []))
         section = (
             f"<section>\n"
-            f"  <h2>{topic_name}</h2>\n"
+            f"  <h2>{html.escape(topic_name)}</h2>\n"
             f"  {analysis_html}\n"
             f"  {sources_html}\n"
             f"</section>"
@@ -48,9 +54,9 @@ def build_html(summaries_by_topic, articles_by_topic, market_data, signal_box=""
     with open("template.html", "r") as f:
         template = f.read()
 
-    html = template.replace("{date}", today).replace("{content}", content)
+    html_out = template.replace("{date}", today).replace("{content}", content)
 
     with open("index.html", "w") as f:
-        f.write(html)
+        f.write(html_out)
 
-    print(f"Wrote index.html ({len(html):,} bytes)")
+    print(f"Wrote index.html ({len(html_out):,} bytes)")

@@ -21,10 +21,10 @@ def main():
     summaries_by_topic = summarize_all_topics(articles_by_topic)
 
     print("\n[4/5] Synthesizing cross-topic signals...")
-    signal_box, theme = synthesize_all_topics(summaries_by_topic)
+    signal_box, theme, alpha = synthesize_all_topics(summaries_by_topic)
 
     print("\n[5/5] Building index.html...")
-    build_html(summaries_by_topic, articles_by_topic, market_data, signal_box, theme)
+    build_html(summaries_by_topic, articles_by_topic, market_data, signal_box, theme, alpha)
 
     print("\nDone. Open index.html to view your daily briefing.")
 

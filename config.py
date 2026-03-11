@@ -11,14 +11,12 @@ TOPICS = {
         {"url": "https://techcrunch.com/feed/", "tier": 2, "name": "TechCrunch"},
         {"url": "https://feeds.feedburner.com/venturebeat/SZYF", "tier": 3, "name": "VentureBeat"},
     ],
-    "Geopolitics": [
+    "World Affairs": [
         {"url": "https://feeds.bbci.co.uk/news/world/rss.xml", "tier": 1, "name": "BBC World"},
         {"url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml", "tier": 1, "name": "NYT World"},
-        {"url": "https://feeds.skynews.com/feeds/rss/world.xml", "tier": 2, "name": "Sky News"},
-    ],
-    "World News": [
         {"url": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=US:en&hl=en-US&gl=US", "tier": 1, "name": "Reuters via Google"},
         {"url": "https://feeds.bbci.co.uk/news/rss.xml", "tier": 1, "name": "BBC Top"},
+        {"url": "https://feeds.skynews.com/feeds/rss/world.xml", "tier": 2, "name": "Sky News"},
         {"url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml", "tier": 1, "name": "NYT Home"},
     ],
     "Financial News": [

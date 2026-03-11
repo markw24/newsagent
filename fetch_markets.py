@@ -4,12 +4,16 @@ import yfinance
 
 
 MARKET_SYMBOLS = [
-    {"symbol": "^GSPC",  "name": "S&P 500"},
-    {"symbol": "^IXIC",  "name": "NASDAQ"},
-    {"symbol": "^DJI",   "name": "Dow Jones"},
-    {"symbol": "^VIX",   "name": "VIX"},
-    {"symbol": "^TNX",   "name": "10Y Treasury"},
+    {"symbol": "^GSPC",   "name": "S&P 500"},
+    {"symbol": "^IXIC",   "name": "NASDAQ"},
+    {"symbol": "^DJI",    "name": "Dow Jones"},
+    {"symbol": "^RUT",    "name": "Russell 2K"},
+    {"symbol": "^VIX",    "name": "VIX"},
+    {"symbol": "^TNX",    "name": "10Y Treasury"},
     {"symbol": "BTC-USD", "name": "Bitcoin"},
+    {"symbol": "GC=F",    "name": "Gold"},
+    {"symbol": "CL=F",    "name": "WTI Oil"},
+    {"symbol": "EURUSD=X","name": "EUR/USD"},
 ]
 
 
